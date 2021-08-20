@@ -4,34 +4,40 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import renan.notepadapp.entities.User;
 
 public class UserDTO implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
+
+	@NotBlank(message = "Campo requerido")
 	private String name;
+
+	@Email(message = "Email inválido")
+	@NotBlank(message = "Campo requerido")
 	private String email;
-	private String password;
-	
+
 	private Set<RoleDTO> roles = new HashSet<>();
-	
+
 	public UserDTO() {
 	}
 
-	public UserDTO(Long id, String name, String email, String password) {
+	public UserDTO(Long id, String name, String email) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.password = password;
 	}
-	
+
 	public UserDTO(User entity) {
 		id = entity.getId();
 		name = entity.getName();
 		email = entity.getEmail();
-		password = entity.getPassword();
+		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 
 	public Long getId() {
@@ -58,14 +64,6 @@ public class UserDTO implements Serializable {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 	public Set<RoleDTO> getRoles() {
 		return roles;
 	}
