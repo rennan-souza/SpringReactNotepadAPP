@@ -1,0 +1,35 @@
+.auth-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-image-container img {
+  width: 80%;
+}
+
+.auth-title {
+  margin-bottom: 40px;
+}
+
+.auth-container {
+  width: 100%;
+}
+
+@media(min-width: 768px) {
+  .auth-container {
+      margin-top: 10px;
+  }
+}
+
+@media (min-width: 992px) {
+  .auth-image-container {
+    justify-content: flex-end;
+  }
+
+  .auth-container {
+    margin: auto;
+    width: 70%;
+    margin-top: 40px;
+  }
+}
