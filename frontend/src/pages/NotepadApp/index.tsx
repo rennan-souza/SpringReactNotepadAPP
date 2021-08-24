@@ -1,19 +1,18 @@
 
-import { Switch } from "react-router-dom";
-import PrivateRoute from "../../components/PrivateRoute";
+import { Route, Switch } from "react-router-dom";
+import Create from "./Note/Create";
 import List from "./Note/List";
-
-
 
 const NotepadApp = () => {
     return (
-        <>
-            <Switch>
-                <PrivateRoute path="/notes">
-                    <List />
-                </PrivateRoute>
-            </Switch>
-        </>
+        <Switch>
+            <Route path="/notes" exact>
+                <List />
+            </Route>
+            <Route path="/notes/:noteId" exact>
+                <Create />
+            </Route>
+        </Switch>
     );
 };
 

@@ -1,5 +1,6 @@
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/PrivateRoute";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import NotepadApp from "./pages/NotepadApp";
@@ -18,9 +19,9 @@ const Routes = () => (
       </Route>
 
       <Redirect from="/" to="/notes" exact />
-      <Route path="/">
+      <PrivateRoute path="/">
         <NotepadApp />
-      </Route>
+      </PrivateRoute>
     </Switch>
   </BrowserRouter>
 );
