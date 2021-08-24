@@ -2,6 +2,8 @@
 import { Route, Switch } from "react-router-dom";
 import Create from "./Note/Create";
 import List from "./Note/List";
+import Profile from "./User/Profile";
+import Security from "./User/Security";
 
 const NotepadApp = () => {
     return (
@@ -11,6 +13,12 @@ const NotepadApp = () => {
             </Route>
             <Route path="/notes/:noteId" exact>
                 <Create />
+            </Route>
+            <Route path="/user/profile" exact>
+                <Profile />
+            </Route>
+            <Route path="/user/security" exact>
+                <Security />
             </Route>
         </Switch>
     );

@@ -47,8 +47,8 @@ const Navbar = () => {
                                         {getAuthData().userFullName}
                                     </button>
                                     <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a className="dropdown-item" href="#link">Meus dados</a>
-                                        <a className="dropdown-item" href="#link">Alterar minha senha</a>
+                                        <Link className="dropdown-item" to="/user/profile">Meus dados</Link>
+                                        <Link className="dropdown-item" to="/user/security">Alterar minha senha</Link>
                                         <div className="dropdown-divider"></div>
                                         <button className="dropdown-item" onClick={handleLogoutClick}>Sair</button>
                                     </div>
