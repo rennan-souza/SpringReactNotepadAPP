@@ -1,0 +1,15 @@
+.home-auth-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.home-auth-image-container svg {
+  width: 80%;
+}
+
+@media (min-width: 992px) {
+    .home-auth-image-container {
+      justify-content: flex-end;
+    }
+}    

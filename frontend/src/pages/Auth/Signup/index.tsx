@@ -15,7 +15,7 @@ const Signup = () => {
                     <input type="text" className="form-control form-control-lg" placeholder="Senha" />
                 </div>
                 <div className="form-group">
-                    <button className="btn btn-lg btn-outline-primary btn-block">CRIAR CONTA</button>
+                    <button className="btn btn-lg btn-primary btn-block">CRIAR CONTA</button>
                 </div>
             </form>
         </div>

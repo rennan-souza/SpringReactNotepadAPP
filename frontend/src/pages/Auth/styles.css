@@ -1,13 +1,3 @@
-.auth-image-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.auth-image-container img {
-  width: 80%;
-}
-
 .auth-title {
   margin-bottom: 40px;
 }
@@ -23,10 +13,6 @@
 }
 
 @media (min-width: 992px) {
-  .auth-image-container {
-    justify-content: flex-end;
-  }
-
   .auth-container {
     margin: auto;
     width: 70%;
