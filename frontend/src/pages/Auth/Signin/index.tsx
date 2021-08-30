@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getTokenData, requestBackendLogin, saveAuthData } from "../../../util/requests";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../AuthContext";
@@ -84,9 +84,9 @@ const Signin = () => {
                 </div>
 
                 <div className="form-group">
-                    <a href="#link" className="text-dark">
+                    <Link to="/auth/recover" className="text-dark">
                         <small>Esqueci minha senha</small>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="form-group">
