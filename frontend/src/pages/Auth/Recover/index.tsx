@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { requestBackend } from "../../../util/requests";
 
 type UserFormRecover = {
     email: string;
@@ -14,11 +16,30 @@ const Recover = () => {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm<UserFormRecover>();
 
     const onSubmit = (userFormRecover: UserFormRecover) => {
-        setLoad(true);
-        
+        setLoad(true)
+        requestBackend({
+            method: 'POST',
+            url: '/users/recover',
+            data: userFormRecover,
+            withCredentials: false,
+        }).then(() => {
+            toast.success('Enviamos no seu o email o link para criar uma nova senha', {
+                position: "bottom-left",
+                autoClose: 5000,
+            });
+            setLoad(false);
+            reset();
+        }).catch((error) => {
+            toast.error(error.response.data.message, {
+                position: "bottom-left",
+                autoClose: 5000,
+            });
+            setLoad(false);
+        })
     };
 
     return (
@@ -40,7 +61,7 @@ const Recover = () => {
                         className={`form-control form-control-lg ${errors.email ? "is-invalid" : ""
                             }`}
                         placeholder="Email"
-                        name="username"
+                        name="email"
                     />
                     <small className="text-danger">{errors.email?.message}</small>
                 </div>

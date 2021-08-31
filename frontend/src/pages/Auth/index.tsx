@@ -6,6 +6,7 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 import HomeAuthImage from "../../components/HomeAuthImage";
 import Recover from "./Recover";
+import Reset from "./Reset";
 
 
 const Auth = () => {
@@ -22,6 +23,9 @@ const Auth = () => {
                         </Route>
                         <Route path="/auth/recover" exact>
                             <Recover />
+                        </Route>
+                        <Route path="/auth/reset/:token" exact>
+                            <Reset />
                         </Route>
                     </Switch>
                 </div>
