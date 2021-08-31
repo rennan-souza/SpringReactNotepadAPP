@@ -1,5 +1,7 @@
 package renan.notepadapp.services;
 
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import renan.notepadapp.dtos.UserDTO;
 import renan.notepadapp.dtos.UserInsertDTO;
+import renan.notepadapp.dtos.UserResetPasswordDTO;
 import renan.notepadapp.entities.PasswordRecoveryToken;
 import renan.notepadapp.entities.Role;
 import renan.notepadapp.entities.User;
@@ -37,6 +40,9 @@ public class UserService implements UserDetailsService {
 	
 	@Autowired
 	private PasswordRecoveryTokenRepository passwordRecoveryTokenRepository;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@Transactional
 	public UserDTO signup(UserInsertDTO dto) {
@@ -76,8 +82,28 @@ public class UserService implements UserDetailsService {
 		entity.setUserId(user.getId());
 		passwordRecoveryTokenRepository.save(entity);
 		
-		//Enviar email
+		emailService.sendEmailRecoverPassword(user.getName(), user.getEmail(), token);
 	} 
+	
+	@Transactional
+	public void reset(UserResetPasswordDTO dto) {
+		PasswordRecoveryToken passwordRecoveryToken = 
+				passwordRecoveryTokenRepository.findByToken(dto.getToken());
+		
+		if (passwordRecoveryToken == null) {
+			throw new ResourceBadRequest("Token não encontrado");
+		}
+		
+		if (passwordRecoveryToken.getExpiresAt().isBefore(Instant.now())) {
+			throw new ResourceBadRequest("Token expirado");
+		}
+		
+		User entity = userRepository.getOne(passwordRecoveryToken.getUserId());
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+		entity = userRepository.save(entity);
+		
+		passwordRecoveryTokenRepository.deleteByToken(dto.getToken());
+	}
 
 	
 	@Override

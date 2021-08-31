@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RandomHashGeneratorService {
+	
 	private Random rand = new Random();
 
 	public String newHash(int size) {

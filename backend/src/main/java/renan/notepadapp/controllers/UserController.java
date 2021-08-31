@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import renan.notepadapp.dtos.UserDTO;
 import renan.notepadapp.dtos.UserInsertDTO;
+import renan.notepadapp.dtos.UserResetPasswordDTO;
 import renan.notepadapp.services.UserService;
 
 @RestController
@@ -38,5 +39,17 @@ public class UserController {
 	public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
 		Page<UserDTO> list = userService.findAllPaged(pageable);
 		return ResponseEntity.ok(list);
+	}
+	
+	@PostMapping(value = "/recover")
+	public ResponseEntity<Void> recover(@RequestBody UserDTO dto) {
+		userService.recover(dto.getEmail());
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PostMapping(value = "/reset")
+	public ResponseEntity<Void> reset(@RequestBody UserResetPasswordDTO dto) {
+		userService.reset(dto);
+		return ResponseEntity.noContent().build();
 	}
 }
