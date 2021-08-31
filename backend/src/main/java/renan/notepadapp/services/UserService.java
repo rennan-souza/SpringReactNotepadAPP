@@ -12,10 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import renan.notepadapp.dtos.UserDTO;
 import renan.notepadapp.dtos.UserInsertDTO;
+import renan.notepadapp.entities.PasswordRecoveryToken;
 import renan.notepadapp.entities.Role;
 import renan.notepadapp.entities.User;
+import renan.notepadapp.repositories.PasswordRecoveryTokenRepository;
 import renan.notepadapp.repositories.RoleRepository;
 import renan.notepadapp.repositories.UserRepository;
+import renan.notepadapp.services.exceptions.ResourceBadRequest;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -28,6 +31,12 @@ public class UserService implements UserDetailsService {
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private RandomHashGeneratorService randomHashGenerator;
+	
+	@Autowired
+	private PasswordRecoveryTokenRepository passwordRecoveryTokenRepository;
 	
 	@Transactional
 	public UserDTO signup(UserInsertDTO dto) {
@@ -50,6 +59,25 @@ public class UserService implements UserDetailsService {
 		Page<User> list = userRepository.findAll(pageable);
 		return list.map(x -> new UserDTO(x));
 	}
+	
+	@Transactional
+	public void recover(String email) {
+		
+		User user = userRepository.findByEmail(email);
+		
+		if (user == null) {
+			throw new ResourceBadRequest("Email não cadastrado");
+		}
+		
+		String token = randomHashGenerator.newHash(60);
+		
+		PasswordRecoveryToken entity = new PasswordRecoveryToken();
+		entity.setToken(token);
+		entity.setUserId(user.getId());
+		passwordRecoveryTokenRepository.save(entity);
+		
+		//Enviar email
+	} 
 
 	
 	@Override
