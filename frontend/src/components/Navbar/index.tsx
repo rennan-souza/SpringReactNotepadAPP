@@ -1,3 +1,5 @@
+import './styles.css';
+
 import { useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
@@ -35,7 +37,7 @@ const Navbar = () => {
             {
                 authContextData.autheticated ? (
                     <nav className="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
-                        <Link className="navbar-brand" to="/notes">NotepadAPP</Link >
+                        <Link className="navbar-brand" to="/notes"> <span className="logo-sm">NoteAPP</span> <span className="logo">NotepadAPP</span>  </Link >
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -58,7 +60,7 @@ const Navbar = () => {
                     </nav>
                 ) : (
                     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                        <Link className="navbar-brand" to="/home">NotepadAPP</Link >
+                        <Link className="navbar-brand" to="/home"> <span className="logo-sm">NoteAPP</span> <span className="logo">NotepadAPP</span> </Link >
                         <div className="ml-auto">
                             <Link to="/auth/signup" className="btn btn-sm btn-primary mr-1">CRIAR CONTA</Link>
                             <Link to="/auth/signin" className="btn btn-sm btn-outline-primary">LOGIN</Link>

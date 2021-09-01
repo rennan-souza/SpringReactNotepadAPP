@@ -1,0 +1,13 @@
+.logo {
+    display: none;
+}
+
+@media(min-width: 576px) {
+    .logo {
+        display: unset;
+    }
+
+    .logo-sm {
+        display: none;
+    }
+}
